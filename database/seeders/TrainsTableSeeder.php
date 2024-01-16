@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Train;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
@@ -31,18 +32,27 @@ class TrainsTableSeeder extends Seeder
         // // salva nel database
         // $train->save();
 
-        $train = new Train();
-        $train->company = $faker->word();
-        $train->departure_station = $faker->city();
-        $train->arrival_station = $faker->city();
-        $train->departure_time = $faker->date('Y-m-d H:i:s');
-        $train->arrival_time = $faker->date('Y-m-d H:i:s');
-        $train->current_date = $faker->date('Y-m-d');
-        $train->train_code = $faker->numberBetween(10000, 99999);
-        $train->carriages_number = $faker->numberBetween(1, 30);
-        $train->in_time = $faker->boolean();
-        $train->canceled = $faker->boolean();
-        // salva nel database
-        $train->save();
+        for ($i = 0; $i < 1000; $i++) {
+            $departureStartDate = $faker->dateTimeThisYear();
+
+            $train = new Train();
+            $train->company = $faker->word();
+            $train->departure_station = $faker->city();
+            $train->arrival_station = $faker->city();
+
+            $train->departure_time = $departureStartDate->format('Y-m-d H:i:s');
+
+            $arrivalEndDate = $faker->dateTimeBetween($departureStartDate, 'now +1 year');
+            $train->arrival_time = $arrivalEndDate->format('Y-m-d H:i:s');
+
+            $currentDateTime = Carbon::now();
+            $train->current_date = $currentDateTime->format('Y-m-d');
+            $train->train_code = $faker->numberBetween(10000, 99999);
+            $train->carriages_number = $faker->numberBetween(1, 30);
+            $train->in_time = $faker->boolean();
+            $train->canceled = $faker->boolean();
+            // salva nel database
+            $train->save();
+        }
     }
 }
