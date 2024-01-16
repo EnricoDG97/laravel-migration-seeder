@@ -25,7 +25,9 @@
                             <td> {{ $train->departure_station }} </td>
                             <td> {{ $train->arrival_station }} </td>
                             <td> {{ $train->departure_time }} </td>
-                            <td> {{ $train->in_time }} </td>
+                            <td>
+                                {{ ($train->in_time === 0) ? 'In Time' : 'Delay' }}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
