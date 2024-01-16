@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('company', 20);
             $table->string('departure_station', 50);
             $table->string('arrival_station', 50);
-            $table->date('departure_time');
-            $table->date('arrival_time');
-            $table->smallInteger('train_code');
+            $table->dateTime('departure_time');
+            $table->dateTime('arrival_time');
+            $table->integer('train_code');
             $table->smallInteger('carriages_number');
             $table->boolean('in_time');
             $table->boolean('canceled');
