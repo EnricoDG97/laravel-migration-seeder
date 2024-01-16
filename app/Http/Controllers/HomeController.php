@@ -11,7 +11,7 @@ class HomeController extends Controller
         // filtro i treni dove current_time è uguale a departure_time
         // ::raw permette di avviare una query tra parentesi
         // i risultati sono molti, ne prendo solo 50
-        $trains = Train::whereDate('departure_time', '=', Train::raw('DATE(current_date)'))->limit(50)->get();
+        $trains = Train::whereDate('departure_time', '=', Train::raw('DATE(current_date)'))->limit(50)->orderBy('departure_time', 'ASC')->get();
         // dd($trains);
         return view('home', compact('trains'));
     }
