@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-        $trains = Train::all();
-        dd($trains);
-        return view('home');
+        // filtro i treni dove current_time è uguale a departure_time
+        // ::raw permette di avviare una query tra parentesi
+        // i risultati sono molti, ne prendo solo 50
+        $trains = Train::whereDate('departure_time', '=', Train::raw('DATE(current_date)'))->limit(50)->get();
+        // dd($trains);
+        return view('home', compact('trains'));
     }
 }
